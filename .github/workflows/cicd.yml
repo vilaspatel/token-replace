@@ -1,0 +1,44 @@
+name: CIC-Valdiation-Service-CICD
+# Controls when the workflow will run/Publish cun
+on:
+  ## Triggers on every PR to the mentioned branch
+  pull_request: 
+    branches: [main]
+  push:
+    branches: [main]
+  
+  #release:
+  #  types:
+  #    - released
+  
+  # Manual trigger
+  workflow_dispatch:
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+permissions:
+    packages: write
+    actions: read
+    checks: write
+    contents: write
+    deployments: read
+    id-token: none
+    issues: read
+    discussions: none
+    pages: none
+    pull-requests: write
+    repository-projects: read
+    security-events: write
+    statuses: read
+jobs:
+  replace_values:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v
+    - name: Replace token
+      uses: cschleiden/replace-tokens@v1.2
+      with:
+        files: ./appsettings.json
+      env:
+        dbstring: 'sql://localhost;3389'         
+    - name: Run a multi-line script
+      run: |
+        cat ./appsettings.json
