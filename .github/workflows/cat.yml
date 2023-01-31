@@ -21,9 +21,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-          ls -lh
-          cd src
-          ls
-          cd hosted
-          ls
+          cd src/hosted
+          cat txt.txt
         
