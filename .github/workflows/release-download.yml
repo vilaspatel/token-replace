@@ -30,12 +30,12 @@ jobs:
          fileName: "Source code"
     # Download zipball from assets
          zipBall: true
+         tarBall: true
 
       # Runs a single command using the runners shell
       - name: Install unzip
         run: |
-          sudo apt-get install unzip
+            tar –xvzf *.tar.gz -C source
       - name: Unzip archive
         run: |         
-          unzip *.zip 
-          ls token-replace*/
+          ls source
