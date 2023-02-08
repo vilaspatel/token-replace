@@ -38,4 +38,4 @@ jobs:
       - name: Unzip archive
         run: |         
           unzip *.zip 
-          ls 
+          ls token-replace*/
