@@ -34,5 +34,8 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Install unzip
-        run: ls
+        run: |
+           mkdir source
+           tar -xvzf token-replace*.tar.gz -C source
+           ls source/*/
 
