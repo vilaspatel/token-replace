@@ -32,8 +32,10 @@ jobs:
          zipBall: true
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name: Install unzip
         run: |
           sudo apt-get install unzip
-          unzip *.zip -d token-replace
-          ls token-replace
+      - name: Unzip archive
+        run: |         
+          unzip *.zip 
+          ls 
