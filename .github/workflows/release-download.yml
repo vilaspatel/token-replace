@@ -35,7 +35,8 @@ jobs:
       # Runs a single command using the runners shell
       - name: Install unzip
         run: |
-            tar –xvzf *.tar.gz -C source
+           mkdir source
+           tar –xvzf vilaspatel*.tar.gz -C source
       - name: Unzip archive
         run: |         
-          ls source
+          ls source/*/
