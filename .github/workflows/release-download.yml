@@ -33,9 +33,13 @@ jobs:
          tarBall: true
 
       # Runs a single command using the runners shell
-      - name: Install unzip
+      - name: mkdir source
         run: |
            mkdir source
+      - name: untar 
+        run: |           
            tar -xvzf token-replace*.tar.gz -C source
+      - name: list dir in source
+        run: |           
            ls source/*/
 
