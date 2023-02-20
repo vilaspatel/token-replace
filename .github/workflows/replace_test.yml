@@ -25,3 +25,7 @@ jobs:
           db_password: ${{ steps.token.outputs.dbpass}}
       - name: cat the file
         run: cat dbstring.txt
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: dbstring.txt
