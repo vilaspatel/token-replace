@@ -1,0 +1,26 @@
+name: test
+on:
+  workflow_dispatch:
+jobs:
+  utility-cluster-preconfig:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: Azure/get-keyvault-secrets@v1
+        with: 
+          keyvault: "kv-coetools-np-eastus-01"
+          secrets: 'dbpass'
+        id: coetools
+      - name: create a new file
+        run: echo '#{db_password}#' > dbstring.txt
+      - name: Replace tokens
+        uses: cschleiden/replace-tokens@v1.2
+        with:
+          files: 'dbstring.txt' 
+        env:
+          db_password: ${{ steps.coetools.outputs.dbpass}}
+      - name: cat the file
+        run: cat dbstring.txt
