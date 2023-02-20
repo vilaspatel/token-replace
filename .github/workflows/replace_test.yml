@@ -11,9 +11,9 @@ jobs:
           creds: '{"clientId":"${{ secrets.SS_CLIENT_ID }}","clientSecret":"${{ secrets.SS_CLIENT_SECRET }}","subscriptionId":"${{ secrets.SS_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.SS_TENANT_ID }}"}'
       - uses: Azure/get-keyvault-secrets@v1
         with: 
-          keyvault: "kv-coetools-np-eastus-01"
+          keyvault: "kv-token-replace"
           secrets: 'dbpass'
-        id: coetools
+        id: token
       - name: create a new file
         run: echo '#{db_password}#' > dbstring.txt
       - name: Replace tokens
@@ -21,6 +21,6 @@ jobs:
         with:
           files: 'dbstring.txt' 
         env:
-          db_password: ${{ steps.coetools.outputs.dbpass}}
+          db_password: ${{ steps.token.outputs.dbpass}}
       - name: cat the file
         run: cat dbstring.txt
