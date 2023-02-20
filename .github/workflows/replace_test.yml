@@ -4,19 +4,11 @@ on:
 jobs:
   utility-cluster-preconfig:
     runs-on: ubuntu-latest
-    steps:
-      - name: Install Azure cli
-        run: |
-          sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
-          curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
-          AZ_REPO=$(lsb_release -cs)
-          echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
-          sudo apt-get update
-          sudo apt-get install azure-cli    
+    steps:   
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: '{"clientId":"${{ secrets.SS_CLIENT_ID }}","clientSecret":"${{ secrets.SS_CLIENT_SECRET }}","subscriptionId":"${{ secrets.SS_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.SS_TENANT_ID }}"}'
       - uses: Azure/get-keyvault-secrets@v1
         with: 
           keyvault: "kv-coetools-np-eastus-01"
