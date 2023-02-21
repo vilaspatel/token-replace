@@ -1,0 +1,27 @@
+name: test01
+on:
+  workflow_dispatch:
+jobs:
+  utility-cluster-preconfig:
+    runs-on: ubuntu-latest
+    steps:   
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.clientId }}","clientSecret":"${{ secrets.clientSecret }}","subscriptionId":"${{ secrets.subscriptionId }}","tenantId":"${{ secrets.tenantId}}"}'
+       #   creds: '{"clientId":"${{ secrets.SS_CLIENT_ID }}","clientSecret":"${{ secrets.SS_CLIENT_SECRET }}","subscriptionId":"${{ secrets.SS_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.SS_TENANT_ID }}"}'
+      - uses: Azure/get-keyvault-secrets@v1
+        with: 
+          keyvault: "kv-coetools-np-eastus-01"
+          secrets: 'dbpass'
+        id: token
+      - name: Replace tokens
+        uses: cschleiden/replace-tokens@v1.2
+        with:
+          files: 'appsettings.json' 
+        env:
+          pgstring: ${{ steps.token.outputs.dbpass}}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: test
+          path: appsettings.json
