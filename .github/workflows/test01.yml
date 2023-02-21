@@ -13,6 +13,9 @@ jobs:
       - name: pwd
         run: |
           pwd
+      - name: ls
+        run: |
+          ls         
       - uses: Azure/get-keyvault-secrets@v1
         with: 
           keyvault: "kv-coetools-np-eastus-01"
@@ -21,10 +24,10 @@ jobs:
       - name: Replace tokens
         uses: cschleiden/replace-tokens@v1.2
         with:
-          files: '["token-replace/appsettings.json"]' 
+          files: '["appsettings.json"]' 
         env:
           pgstring: ${{ steps.token.outputs.dbpass}}
       - uses: actions/upload-artifact@v3
         with:
           name: test
-          path: '/token-replace/appsettings.json'
+          path: 'appsettings.json'
