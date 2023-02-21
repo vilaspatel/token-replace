@@ -10,6 +10,9 @@ jobs:
         with:
           creds: '{"clientId":"${{ secrets.clientId }}","clientSecret":"${{ secrets.clientSecret }}","subscriptionId":"${{ secrets.subscriptionId }}","tenantId":"${{ secrets.tenantId}}"}'
        #   creds: '{"clientId":"${{ secrets.SS_CLIENT_ID }}","clientSecret":"${{ secrets.SS_CLIENT_SECRET }}","subscriptionId":"${{ secrets.SS_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.SS_TENANT_ID }}"}'
+      - name: pwd
+        run: |
+          pwd
       - uses: Azure/get-keyvault-secrets@v1
         with: 
           keyvault: "kv-coetools-np-eastus-01"
