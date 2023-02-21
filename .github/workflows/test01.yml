@@ -18,7 +18,7 @@ jobs:
       - name: Replace tokens
         uses: cschleiden/replace-tokens@v1.2
         with:
-          files: '/token-replace/appsettings.json' 
+          files: "['token-replace/appsettings.json']" 
         env:
           pgstring: ${{ steps.token.outputs.dbpass}}
       - uses: actions/upload-artifact@v3
