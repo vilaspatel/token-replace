@@ -24,10 +24,10 @@ jobs:
       - name: Replace tokens
         uses: cschleiden/replace-tokens@v1.2
         with:
-          files: '["appsettings.json"]' 
+          files: '["src/hosted/appsettings.json"]' 
         env:
           pgstring: ${{ steps.token.outputs.dbpass}}
       - uses: actions/upload-artifact@v3
         with:
           name: test
-          path: 'appsettings.json'
+          path: src
