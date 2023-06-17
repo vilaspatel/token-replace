@@ -29,4 +29,7 @@ jobs:
           WITH_V: true
           DEFAULT_BUMP: patch
           PRERELEASE: false
+       
+      - name: desplay tag name
+        run: echo ${{ steps.tag.outputs.tag }}
 
